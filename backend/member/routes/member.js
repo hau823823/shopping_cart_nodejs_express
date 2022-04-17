@@ -5,6 +5,10 @@ const MemberModifyMethod = require('../controllers/modify_controller');
 
 memberModifyMethod = new MemberModifyMethod();
 
+//註冊新會員
 router.post('/register',memberModifyMethod.postRegister);
+
+//會員登入
+router.post('/login', memberModifyMethod.postLogin);
 
 module.exports = router;
