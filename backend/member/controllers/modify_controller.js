@@ -42,6 +42,7 @@ module.exports = class Member {
             toRegister(memberData).then(result => {
                 // 若寫入成功則回傳
                 res.json({
+                    status: "註冊成功。",
                     result: result
                 })
             }, (err) => {
