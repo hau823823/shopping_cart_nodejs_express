@@ -19,4 +19,7 @@ router.post('/order', orderModifyMethod.postOrderAllProduct);
 // 更改單筆訂單資料
 router.put('/order', orderModifyMethod.updateOrderProduct);
 
+// 刪除訂單資料
+router.delete('/order', orderModifyMethod.deleteOrderProduct);
+
 module.exports = router;
