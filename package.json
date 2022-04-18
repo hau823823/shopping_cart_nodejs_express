@@ -2,9 +2,9 @@
   "name": "meat_out",
   "version": "1.0.0",
   "description": "An online shopping platform for healthy lunch box",
-  "main": "backend/member/app.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./backend/member/bin/www"
+    "start": "node ./bin/www"
   },
   "author": "HAU",
   "license": "ISC",
