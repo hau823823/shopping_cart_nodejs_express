@@ -14,7 +14,7 @@ const getOrderID = () => {
   })
 }
 
-//取得商品價格
+// 取得商品價格
 const getProductPrice = (productID) => {
   return new Promise((resolve, reject) => {
     db.query('SELECT price FROM product WHERE id = ?', productID, function (err, rows) {
@@ -61,7 +61,7 @@ module.exports = function orderProductListData(orderList) {
 
     let orderAllData = [];
     for (let key in productQuantity) {
-      
+
       const price = await (getProductPrice(key));
       const orderData = {
         order_id: orderID,
