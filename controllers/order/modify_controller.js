@@ -2,6 +2,7 @@ const Check = require('../../service/member_check');
 
 const verify = require('../../models/member/verification_model');
 const orderProductListData = require('../../models/order/order_all_product_model');
+const orderOneProductData = require('../../models/order/order_one_product_model');
 const updateOrderData = require('../../models/order/update_model.js');
 const deleteOrderData = require('../../models/order/delete_model');
 
@@ -34,6 +35,47 @@ module.exports = class ModifyOrder {
                         orderDate: onTime(),
                     }
                     orderProductListData(orderList).then(result => {
+                        res.json({
+                            result: result
+                        })
+                    }, (err) => {
+                        res.json({
+                            result: err
+                        })
+                    })
+                }
+            })
+        }
+    }
+
+    // 訂單筆訂單
+    postOrderOneProduct(req, res, next) {
+        const token = req.headers['token'];
+        //確定token是否有輸入
+        if (check.checkNull(token) === true) {
+            res.json({
+                err: "請輸入token！"
+            })
+        } else if (check.checkNull(token) === false) {
+            verify(token).then(tokenResult => {
+                if (tokenResult === false) {
+                    res.json({
+                        result: {
+                            status: "token錯誤。",
+                            err: "請重新登入。"
+                        }
+                    })
+                } else {
+                    // 提取要新增的單筆資料
+                    const memberID = tokenResult;
+                    const orderOneList = {
+                        orderID: req.body.orderID,
+                        memberID: memberID,
+                        productID: req.body.productID,
+                        quantity: req.body.quantity,
+                        createDate: onTime()
+                    }
+                    orderOneProductData(orderOneList).then(result => {
                         res.json({
                             result: result
                         })

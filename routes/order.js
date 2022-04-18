@@ -16,6 +16,9 @@ router.get('/order/member', orderGetMethod.getOneOrder);
 // 訂整筆訂單
 router.post('/order', orderModifyMethod.postOrderAllProduct);
 
+// 訂單筆訂單
+router.post('/order/addoneproduct', orderModifyMethod.postOrderOneProduct);
+
 // 更改單筆訂單資料
 router.put('/order', orderModifyMethod.updateOrderProduct);
 
