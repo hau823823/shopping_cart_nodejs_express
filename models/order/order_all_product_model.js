@@ -38,10 +38,8 @@ module.exports = function orderProductListData(orderList) {
 
     const products = orderList.productID;
     const productArray = products.split(',');
-    // console.log("productArray: " + productArray);
     const quantitys = orderList.quantity;
     const quantityArray = quantitys.split(',');
-    // console.log("quantityArray: " + quantityArray);
 
     //productID與quantity合併成新object
     //array1 [3, 2, 1]
@@ -54,19 +52,16 @@ module.exports = function orderProductListData(orderList) {
 
     let productQuantity = {};
     for (let i in productArray) {
-      // console.log('productArray i: ' + productArray[i]);
       let index = productArray.indexOf(productArray[i]);
-      // console.log('the index: ' + index);
+
       for (let j in quantityArray) {
-        // console.log('quantityArray j: ' + quantityArray[j]);
         productQuantity[productArray[i]] = quantityArray[index];
-        // console.log('new quantityArray j: ' + quantityArray[index]);
       }
     }
 
     let orderAllData = [];
     for (let key in productQuantity) {
-      // console.log(orderID);
+      
       const price = await (getProductPrice(key));
       const orderData = {
         order_id: orderID,
