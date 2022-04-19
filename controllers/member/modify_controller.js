@@ -148,11 +148,3 @@ const onTime = () => {
         (ss > 9 ? '' : '0') + ss
     ].join('');
 }
-
-const fileToBase64 = (filePath) => {
-    return new Promise((resolve, reject) => {
-        fs.readFile(filePath, 'base64', function (err, data) {
-            resolve(data);
-        })
-    })
-}
