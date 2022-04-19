@@ -48,7 +48,7 @@ const checkOrderStock = (orderProductID, orderQuantity) => {
     })
 }
 
-module.exports = function orderComplete(orderID, memberID) {
+module.exports = function orderComplete(orderID, memberID, orderPlace) {
     let result = {};
     return new Promise(async (resolve, reject) => {
 
@@ -63,6 +63,10 @@ module.exports = function orderComplete(orderID, memberID) {
         } else if (hasComplete === false) {
             result.status = "訂單完成失敗。"
             result.err = "該訂單已經完成。"
+            reject(result)
+        } else if (orderPlace === "") {
+            result.status = "訂單完成失敗。"
+            result.err = "沒有訂單地址資料!"
             reject(result)
         } else if (hasData === true && hasComplete === true) {
             // 取得order_list的table資料
@@ -104,7 +108,18 @@ module.exports = function orderComplete(orderID, memberID) {
                 }
             })
 
-            result.status = "訂單編號：" + orderID + " 已完成訂購，謝謝您使用該服務！";
+            // 將order_place改成該筆訂單送貨地址
+            await db.query('UPDATE order_list SET order_place = ? WHERE order_id = ?', [orderPlace, orderID], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                    result.status = "訂單完成失敗。"
+                    result.err = "伺服器錯誤，請稍後在試！"
+                    reject(result);
+                    return;
+                }
+            })
+
+            result.status = "訂單編號：" + orderID + " 已完成訂購，訂單地址：" + orderPlace + "。謝謝您使用該服務！";
             resolve(result);
         }
     })

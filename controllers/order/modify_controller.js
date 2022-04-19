@@ -196,7 +196,8 @@ module.exports = class ModifyOrder {
             } else {
                 const memberID = tokenResult;
                 const orderID = req.body.orderID;
-                orderComplete(orderID, memberID).then(result => {
+                const orderPlace = req.body.orderPlace;
+                orderComplete(orderID, memberID, orderPlace).then(result => {
                     res.json({
                         result: result
                     })
