@@ -25,4 +25,7 @@ router.put('/order', orderModifyMethod.updateOrderProduct);
 // 刪除訂單資料
 router.delete('/order', orderModifyMethod.deleteOrderProduct);
 
+// 訂單已完成
+router.put('/order/complete', orderModifyMethod.putProductComplete);
+
 module.exports = router;
